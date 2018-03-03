@@ -13,13 +13,29 @@
 //   NEO_GRB     Pixels are wired for GRB bitstream, correct for neopixel stick
 //   NEO_KHZ400  400 KHz bitstream (e.g. FLORA pixels)
 //   NEO_KHZ800  800 KHz bitstream (e.g. High Density LED strip), correct for neopixel stick
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, NEO_RGB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, NEO_GRB + NEO_KHZ800);
 
 void setup (){
   strip.begin();
   strip.show(); // Initialize all pixels to 'off'
 }
 void loop (){
+  colorWipe(strip.Color(0, 0, 0), 50);
+  delay(1000);
+  colorWipe(strip.Color(255, 0, 0), 50);  // Red
+  delay(1000);
+  colorWipe(strip.Color(0, 255, 0), 50);  // Green
+  delay(1000);
+  colorWipe(strip.Color(0, 0, 255), 50);  // Blue
+  delay(1000);
+}
+
+void colorWipe(uint32_t c, uint8_t wait) {
+  for(uint16_t i=0; i<strip.numPixels(); i++) {
+    strip.setPixelColor(i, c);
+    strip.show();
+    delay(wait);
+  }
 }
 
 
